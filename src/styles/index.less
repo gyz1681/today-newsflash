@@ -1,10 +1,15 @@
-@import 'icon.css';
-.page-nav-bar {
-    background-color: #3296fa;
-    /* background-color: #3296fa!important; */
+// 全局样式文件
+
+// 加载图标样式
+@import "./icon.less";
+
+body {
+  background-color: #f5f7f9;
 }
 
-.van-nav-bar__title {
+.page-nav-bar {
+  background-color: #3296fa;
+  .van-nav-bar__title, .van-icon {
     color: #fff;
-    /* color: #fff!important; */
+  }
 }

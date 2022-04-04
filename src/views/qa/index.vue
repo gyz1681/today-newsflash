@@ -1,14 +1,21 @@
 <template>
-  <div class="qa-container">
-    <h1>问答页面</h1>
-  </div>
+  <div class="qa-container">问答</div>
 </template>
 
 <script>
 export default {
-  name: 'QaIndex'
+  name: 'QaIndex',
+  components: {},
+  props: {},
+  data () {
+    return {}
+  },
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
+  methods: {}
 }
 </script>
 
-<style>
-</style>
+<style scoped lang="less"></style>

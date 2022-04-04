@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- 路由的出口 -->
+    <router-view/>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   name: 'App'
 }
 </script>
-<style lang="less">
-</style>
+
+<style lang="less"></style>
