@@ -1,16 +1,24 @@
 <template>
+  <!--
+    Cell 单元格的 to 属性和 VueRouter 中的 RouterLink 导航组件的 to 属性用法是一样的
+    用法参考链接：https://router.vuejs.org/zh/api/#to
+    :to="'/article/' + article.art_id"
+    :to="`/article/${article.art_id}`"
+   -->
   <van-cell
     class="article-item"
     :to="{
+      // 根据路由名称进行跳转
       name: 'article',
+
+      // 传递路由动态参数
       params: {
-        articleId: article.art_id,
-      },
+        // 属性名：路由路径中设计的动态参数名称
+        articleId: article.art_id
+      }
     }"
   >
-    <div slot="title" class="title van-multi-ellipsis--l2">
-      {{ article.title }}
-    </div>
+    <div slot="title" class="title van-multi-ellipsis--l2">{{ article.title }}</div>
     <div slot="label">
       <div v-if="article.cover.type === 3" class="cover-wrap">
         <div
@@ -18,7 +26,11 @@
           v-for="(img, index) in article.cover.images"
           :key="index"
         >
-          <van-image :src="img" fit="cover" class="cover-item-img"></van-image>
+          <van-image
+            class="cover-item-img"
+            fit="cover"
+            :src="img"
+          />
         </div>
       </div>
       <div class="label-info-wrap">
@@ -27,60 +39,82 @@
         <span>{{ article.pubdate | relativeTime }}</span>
       </div>
     </div>
-
     <van-image
-      class="rigth-cover"
-      slot="default"
-      :src="article.cover.images[0]"
       v-if="article.cover.type === 1"
+      slot="default"
+      class="right-cover"
       fit="cover"
-    ></van-image>
+      :src="article.cover.images[0]"
+    />
   </van-cell>
 </template>
 
 <script>
 export default {
   name: 'ArticleItem',
+  components: {},
   props: {
     article: {
       type: Object,
       required: true
     }
-  }
+  },
+  data () {
+    return {}
+  },
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
+  methods: {}
 }
 </script>
 
-<style>
-.article-item .title {
-  font-size: 20px;
-  color: #3a3a3a;
-}
-.article-item .van-cell__value {
-  flex: unset;
-  width: 100px;
-  height: 60px;
-  padding-left: 20px;
-}
-.article-item .right-cover {
-  width: 100px;
-  height: 60px;
-}
-.article-item .label-info-wrap span {
-  font-size: 10px;
-  color: #b4b4b4;
-  margin-right: 15px;
-}
-.article-item .cover-wrap {
-  display: flex;
-  padding: 10px 0;
-}
-.article-item .cover-wrap .cover-item:not(:last-child) {
-  flex: 1;
-  height: 100px;
-  padding-right: 2px;
-}
-.article-item .cover-wrap .cover-item .cover-item-img {
-  width: 100%;
-  height: 100px;
+<style scoped lang="less">
+.article-item {
+  .title {
+    font-size: 32px;
+    color: #3a3a3a;
+  }
+
+  .van-cell__title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .van-cell__value {
+    flex: unset;
+    width: 232px;
+    height: 146px;
+    padding-left: 25px;
+  }
+
+  .right-cover {
+    width: 100%;
+    height: 146px;
+  }
+
+  .label-info-wrap span {
+    font-size: 22px;
+    color: #b4b4b4;
+    margin-right: 25px;
+  }
+
+  .cover-wrap {
+    display: flex;
+    padding: 30px 0;
+    .cover-item {
+      flex: 1;
+      height: 146px;
+      &:not(:last-child) {
+        padding-right: 4px;
+      }
+      .cover-item-img {
+        width: 100%;
+        height: 146px;
+      }
+    }
+  }
 }
 </style>

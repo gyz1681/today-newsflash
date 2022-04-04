@@ -1,8 +1,11 @@
+/**
+ * 用户相关请求模块
+ */
 import request from '@/utils/request'
 
-export const getSearchSuggestion = q => {
+export const getSearchSuggestions = q => {
   return request({
-    method: 'get',
+    method: 'GET',
     url: '/v1_0/suggestion',
     params: {
       q
@@ -12,7 +15,7 @@ export const getSearchSuggestion = q => {
 
 export const getSearchResult = params => {
   return request({
-    method: 'get',
+    method: 'GET',
     url: '/v1_0/search',
     params
   })

@@ -12,27 +12,23 @@
       <van-button
         class="like-btn"
         :class="{
-          liked: comment.is_liking,
+          liked: comment.is_liking
         }"
         :icon="comment.is_liking ? 'good-job' : 'good-job-o'"
-        @click="onCommentLike"
         :loading="commentLoading"
-        >{{ comment.like_count || "赞" }}</van-button
-      >
+        @click="onCommentLike"
+      >{{ comment.like_count || '赞' }}</van-button>
     </div>
 
     <div slot="label">
       <p class="comment-content">{{ comment.content }}</p>
       <div class="bottom-info">
-        <span class="comment-pubdate">{{
-          comment.pubdate | relativeTime
-        }}</span>
+        <span class="comment-pubdate">{{ comment.pubdate | relativeTime }}</span>
         <van-button
           class="reply-btn"
           round
           @click="$emit('reply-click', comment)"
-          >回复 {{ comment.reply_count }}</van-button
-        >
+        >回复 {{ comment.reply_count }}</van-button>
       </div>
     </div>
   </van-cell>
@@ -40,6 +36,7 @@
 
 <script>
 import { addCommentLike, deleteCommentLike } from '@/api/comment'
+
 export default {
   name: 'CommentItem',
   components: {},
@@ -63,15 +60,17 @@ export default {
       this.commentLoading = true
       try {
         if (this.comment.is_liking) {
+          // 已赞，取消点赞
           await deleteCommentLike(this.comment.com_id)
           this.comment.like_count--
         } else {
+          // 没有点赞，添加点赞
           await addCommentLike(this.comment.com_id)
           this.comment.like_count++
         }
         this.comment.is_liking = !this.comment.is_liking
       } catch (err) {
-        this.$toast('操作失败')
+        this.$toast('操作失败，请重试')
       }
       this.commentLoading = false
     }
@@ -111,7 +110,7 @@ export default {
     align-items: center;
   }
   .reply-btn {
-    width: 135px;
+    // width: 135px;
     height: 48px;
     line-height: 48px;
     font-size: 21px;

@@ -1,46 +1,63 @@
 <template>
-<div class="search-history">
- <van-cell title="搜索历史" >
-  <template v-if="showDel">
-     <span @click="$emit('clearSearch')">全部删除</span>&nbsp;
-   <span @click="showDel=false">完成</span>
-  </template>
-   <van-icon v-else @click="showDel=true" name="delete" />
- </van-cell>
- <van-cell :title="text" v-for="(text,index) in searchHistory" :key="index" @click="historyChange(text,index)">
-   <van-icon v-if="showDel"  name="close"/>
- </van-cell>
- </div>
+  <div class="search-history">
+    <van-cell title="搜索历史">
+      <div v-if="isDeleteShow">
+        <span @click="$emit('clear-search-histories')">全部删除</span>
+        &nbsp;&nbsp;
+        <span @click="isDeleteShow = false">完成</span>
+      </div>
+      <van-icon v-else name="delete" @click="isDeleteShow = true" />
+    </van-cell>
+    <van-cell
+      :title="item"
+      v-for="(item, index) in searchHistories"
+      :key="index"
+      @click="onSearchItemClick(item, index)"
+    >
+      <van-icon v-show="isDeleteShow" name="close" />
+    </van-cell>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'SearchHistory',
+  components: {},
   props: {
-    searchHistory: {
+    // Prop 数据
+    //  Prop 是受父组件数据影响的
+    //    如果是普通数据（数字、字符串、布尔值）绝对不能修改
+    //    即便改了也不会传导给父组件
+    //
+    //    如果是引用类型数据（数组、对象）
+    //        可以修改，例如 [].push(xxx)，对象.xxx = xxx
+    //        不能重新赋值, xxx = []
+    searchHistories: {
       type: Array,
-      require: true
+      required: true
     }
   },
   data () {
     return {
-      showDel: false
+      isDeleteShow: false // 控制删除显示状态
     }
   },
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
   methods: {
-    historyChange (text, index) {
-      if (this.showDel === true) {
-        this.searchHistory.splice(index, 1)
+    onSearchItemClick (item, index) {
+      if (this.isDeleteShow) {
+        // 删除状态，删除历史记录数据
+        this.searchHistories.splice(index, 1)
       } else {
-        this.$emit('search', text)
+        // 非删除状态，直接进入搜索
+        this.$emit('search', item)
       }
     }
   }
 }
 </script>
 
-<style lang="css" scoped>
-.search {
-  color: #ccc;
-}
-</style>
+<style scoped lang="less"></style>
