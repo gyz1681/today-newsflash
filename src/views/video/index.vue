@@ -1,14 +1,21 @@
 <template>
-  <div class="video-container">
-    <h1>视频页面</h1>
-  </div>
+  <div class="video-container">视频</div>
 </template>
 
 <script>
 export default {
-  name: 'VideoIndex'
+  name: 'VideoIndex',
+  components: {},
+  props: {},
+  data () {
+    return {}
+  },
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
+  methods: {}
 }
 </script>
 
-<style>
-</style>
+<style scoped lang="less"></style>
