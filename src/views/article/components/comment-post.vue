@@ -7,7 +7,7 @@
       autosize
       type="textarea"
       maxlength="50"
-      placeholder="请输入留言"
+      :placeholder="massages"
       show-word-limit
     />
     <van-button
@@ -34,6 +34,10 @@ export default {
     target: {
       type: [Number, String, Object],
       required: true
+    },
+    comments: {
+      type: Object,
+      default: null
     }
   },
   data () {
@@ -41,7 +45,11 @@ export default {
       message: ''
     }
   },
-  computed: {},
+  computed: {
+    massages () {
+      return this.comments ? `回复 ${this.comments.aut_name}` : '请输入评论内容'
+    }
+  },
   watch: {},
   created () {},
   mounted () {},
@@ -56,7 +64,7 @@ export default {
       try {
         const { data } = await addComment({
           target: this.target.toString(), // 评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）
-          content: this.message, // 评论内容
+          content: this.comments ? `${this.message}//@${this.comments.aut_name}:${this.comments.content}` : this.message, // 评论内容
           art_id: this.articleId ? this.articleId.toString() : this.articleId // 文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
         })
 

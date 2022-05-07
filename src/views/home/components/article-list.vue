@@ -77,7 +77,18 @@ export default {
   },
   computed: {},
   watch: {},
-  created () {},
+  created () {
+    console.log('创建')
+  },
+  destroyed () {
+    console.log('销毁')
+  },
+  activated () {
+    console.log('激活')
+  },
+  deactivated () {
+    console.log('未激活')
+  },
   mounted () {},
   methods: {
     // 初始化或滚动到底部的时候会触发调用 onLoad
