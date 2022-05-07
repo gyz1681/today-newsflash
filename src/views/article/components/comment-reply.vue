@@ -21,6 +21,7 @@
         :list="commentList"
         :source="comment.com_id"
         type="c"
+      @reply-click="isPostShows"
       />
       <!-- /评论的回复列表 -->
     </div>
@@ -31,7 +32,7 @@
         class="write-btn"
         size="small"
         round
-        @click="isPostShow = true"
+        @click="isPostShowss"
       >写评论</van-button>
     </div>
     <!-- /底部区域 -->
@@ -39,6 +40,8 @@
     <!-- 发布评论 -->
     <van-popup v-model="isPostShow" position="bottom">
       <comment-post
+      :comments="comments"
+      ref="replay"
         :target="comment.com_id"
         @post-success="onPostSuccess"
       />
@@ -68,7 +71,8 @@ export default {
   data () {
     return {
       isPostShow: false,
-      commentList: [] // 评论的回复列表
+      commentList: [], // 评论的回复列表
+      comments: {}
     }
   },
   computed: {},
@@ -85,6 +89,14 @@ export default {
 
       // 将最新回复的内容展示到列表的顶部
       this.commentList.unshift(data.new_obj)
+    },
+    isPostShows (val) {
+      this.comments = val
+      this.isPostShow = true
+    },
+    isPostShowss () {
+      this.comments = null
+      this.isPostShow = true
     }
   }
 }
