@@ -83,6 +83,12 @@ export default {
   computed: {
     ...mapState(['user'])
   },
+  activated () {
+    console.log('激活')
+  },
+  deactivated () {
+    console.log('失去激活')
+  },
   watch: {},
   created () {
     this.loadChannels()
