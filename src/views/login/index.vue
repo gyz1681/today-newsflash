@@ -75,7 +75,6 @@
 
 <script>
 import { login, sendSms } from '@/api/user'
-
 export default {
   name: 'LoginIndex',
   components: {},
@@ -83,7 +82,7 @@ export default {
   data () {
     return {
       user: {
-        mobile: '13911111111', // 手机号
+        mobile: '18682463885', // 手机号
         code: '246810' // 验证码
       },
       userFormRules: {

@@ -3,7 +3,7 @@
  <div class="wrap">
     <!-- 头部 Header 区域 -->
     <div class="header">
-      <h3>小思同学</h3>
+      <h3>小智同学</h3>
       <img src="~@/assets/person01.png" alt="icon" />
     </div>
     <!-- 中间 聊天内容区域 -->
@@ -22,9 +22,10 @@
     </div>
     <!-- 底部 消息编辑区域 -->
     <div class="footer">
-      <img src="~@/assets/person02.png" alt="icon" />
-      <input type="text" placeholder="说的什么吧..." class="input_txt" id="ipt" />
-      <input type="button" value="发 送" class="input_sub" id="btnSend" />
+      <img :src="info.photo" alt="icon"/>
+      <input type="text" class="input_txt" id="ipt" v-model="message" ref="message" onfocus="showClear=true" />
+       <span @click="clear" class="clearVal" v-show="showClear">x</span>
+      <input type="button" value="发 送" class="input_sub" onclick="send" />
     </div>
   </div>
   <!-- 注意：只要为 audio 指定了新的 src 属性，而且指定了 autoplay，那么，语音就会自动播放 -->
@@ -33,18 +34,25 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'QaIndex',
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      message: '',
+      showClear: true
+    }
   },
-  computed: {},
+  computed: {
+    ...mapState(['info'])
+  },
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+  }
 }
 </script>
 
@@ -182,15 +190,32 @@ export default {
     bottom:0px;
     background-color:#fff;
     position: absolute;
+    .clearVal{
+      position: absolute;
+      display: block;
+      width: 60px;
+      height:60px;
+      background-color: #fff;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 50%;
+      top: 14px;
+      right:180px;
+      color: #ccc;
+      font-size: 50px;
+    }
 }
 
 .footer img{
     float: left;
     margin:8px 0 0 20px;
+    width: 80px;
+    height: 80px;
 }
 
 .input_txt{
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: 700;
     float: left;
     width:450px;
     height:70px;
