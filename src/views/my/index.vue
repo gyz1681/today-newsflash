@@ -64,7 +64,7 @@
     <!-- /宫格导航 -->
 
     <van-cell title="消息通知" is-link />
-    <van-cell class="mb-9" title="小智同学" is-link />
+    <van-cell class="mb-9" title="小智同学" is-link  to="/xiaozhi"/>
     <van-cell
       v-if="user"
       class="logout-cell"
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { getUserInfo } from '@/api/user'
 
 export default {
@@ -98,8 +98,8 @@ export default {
       this.loadUserInfo()
     }
   },
-  mounted () {},
   methods: {
+    ...mapMutations(['setInfo']),
     onLogout () {
       // 退出提示
       // 在组件中需要使用 this.$dialog 来调用弹框组件
@@ -109,16 +109,16 @@ export default {
         // on confirm
         // 确认退出：清除登录状态（容器中的 user + 本地存储中的 user）
         this.$store.commit('setUser', null)
-      }).catch(() => {
-        // on cancel
-        console.log('取消执行这里')
-      })
+        this.setInfo(null)
+      }).catch(() => {})
     },
 
     async loadUserInfo () {
       try {
         const { data } = await getUserInfo()
         this.userInfo = data.data
+        // console.log(this.userInfo)
+        this.setInfo(this.userInfo)
       } catch (err) {
         this.$toast('获取数据失败，请稍后重试')
       }
